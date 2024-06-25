@@ -1,6 +1,5 @@
 package com.SantanderF1rst.desafio.service;
 
-
 public class Cliente {
 
     private String documento;
@@ -14,16 +13,7 @@ public class Cliente {
     }
 
     public void setDocumento(String documento) {
-
-        if (documento.length() == 14) {
-            setTipo("PF");
-            this.documento = documento;
-        } else if (documento.length() == 18){
-            setTipo("PJ");
-            this.documento = documento;
-        } else {
-            System.out.println("Documento inválido!");
-        }
+        this.documento = documento;
     }
 
     public String getEndereco() {

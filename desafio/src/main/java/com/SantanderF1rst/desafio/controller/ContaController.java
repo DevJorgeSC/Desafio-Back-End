@@ -1,7 +1,10 @@
 package com.SantanderF1rst.desafio.controller;
 
-import org.json.JSONObject;
+import com.SantanderF1rst.desafio.entity.ContaEntity;
+import com.SantanderF1rst.desafio.repository.ContaRepository;
 import com.SantanderF1rst.desafio.service.Conta;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +15,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/conta")
 public class ContaController {
 
+    @Autowired
+    private ContaRepository contaRepository;
+
     @PostMapping(path = "/cadastro", produces = {"application/json"})
     @ResponseBody
-    public ResponseEntity<String> cadastroConta(@RequestBody Conta contaRequestBody) {
+    public ResponseEntity<String> cadastroConta(@RequestBody ContaEntity contaRequestBody) {
+        contaRepository.save(contaRequestBody);
         return ResponseEntity.status(HttpStatus.OK).body(
                 new JSONObject()
                         .put("Sucesso!", "Conta cadastrada com sucesso!")
