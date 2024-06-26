@@ -1,0 +1,186 @@
+openapi: 3.0.3
+info:
+  title: Desafio Santander F1rst
+  description: |- 
+    Aplicação para transferência entre contas bancárias
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: desafio@first.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+
+tags:
+  - name: conta
+    description: transações entre contas
+  - name: cliente
+    description: Cadastro de clientes
+
+paths:
+  /api/conta/cadastro:
+    post:
+      tags:
+        - conta
+      summary: Cadatra conta
+      description: Cadastra conta bancária
+      operationId: cadastroConta
+      requestBody:
+        description: Cadastra uma nova conta para o cliente.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContaEntity'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description:  not found
+        
+
+  /api/conta/debito/valor:
+    post:
+      tags:
+        - conta
+      summary: Débito 
+      description: Realiza débito entre contas.
+      operationId: contaDebito
+      requestBody:
+        description: Realiza débito entre contas.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContaEntity'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description:  not found
+        
+          
+  /api/conta/credito/valor:
+    post:
+      tags:
+        - conta
+      summary: Crédito 
+      description: Realiza crédito.
+      operationId: contaCredito
+      requestBody:
+        description: Realiza crédito.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContaEntity'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '422':
+          description: Validation exception
+          
+  /cancelaTransacao/contaDeb/contaCred/valor/id:
+    post:
+      tags:
+        - conta
+      summary: Cancelamento 
+      description: Realiza cancelamento de transação.
+      operationId: cancelaTranscao
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: not found
+          
+  /api/cliente/cadastro:
+    post:
+      tags:
+        - cliente
+      summary: Cadatra cliente
+      description: Cadastra cliente 
+      operationId: clienteCadastro
+      requestBody:
+        description: Cadastra uma novo cliente.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteEntity'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description:  not found
+components:
+  schemas:
+    ContaEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 10
+        aqencia:
+          type: string
+        saldo:
+          type: number
+          example: 1.00
+        status:
+          type: string
+    Message:
+      type: object
+      properties:
+        mensagem:
+          type: string
+          example: Conta cadastrada com sucesso!
+    ClienteEntity:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 10
+            documento:
+              type: string
+            senha:
+              type: string
+            tipo:
+              type: string
+            nome:
+              type: string
+            endereco:
+              type: string
