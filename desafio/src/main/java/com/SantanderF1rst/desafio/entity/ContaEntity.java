@@ -8,7 +8,7 @@ public class ContaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idConta")
+    @Column(name = "id")
     private Long id;
 
     @Column(unique = true, name = "agencia")
