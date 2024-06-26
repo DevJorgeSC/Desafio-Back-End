@@ -116,17 +116,18 @@ public class ContaController {
 
         TransacaoEntity transacaoCredito= new TransacaoEntity();
         transacaoCredito.setContaDestino(String.valueOf(contaDestino.getId()));
+        transacaoCredito.setContaOrigem(contaOri);
         transacaoCredito.setTipo("Credito");
         transacaoCredito.setValor(valor);
 
         TransacaoEntity transacaoDebito= new TransacaoEntity();
         transacaoDebito.setContaDestino(String.valueOf(contaDestino.getId()));
+        transacaoDebito.setContaOrigem(contaOri);
         transacaoDebito.setTipo("Debito");
         transacaoDebito.setValor(valor);
 
         transacaoRepository.save(transacaoCredito);
         transacaoRepository.save(transacaoDebito);
-
 
         return ResponseEntity.status(HttpStatus.OK).body(
                 new JSONObject()
